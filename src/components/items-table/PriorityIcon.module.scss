@@ -1,0 +1,15 @@
+@import '../../styles/variables.scss';
+
+.outlined {
+  border: 1px solid;
+  border-color: inherit;
+  border-radius: 50%;
+}
+
+.success {
+  color: $color-icon-success;
+}
+
+.danger {
+  color: $color-border-danger;
+}

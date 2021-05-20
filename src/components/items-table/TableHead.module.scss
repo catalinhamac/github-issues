@@ -1,0 +1,29 @@
+@import '../../styles/variables.scss';
+
+.cell,
+.cellItem {
+  display: flex;
+  align-items: center;
+}
+
+.tableHead {
+  background-color: $color-bg-tertiary;
+  border: 1px solid $color-border-primary;
+}
+
+.cellItem {
+  margin-right: 1rem;
+}
+
+.light {
+  color: $color-text-secondary;
+}
+
+.checkIcon {
+  margin-right: 0.5rem;
+}
+
+.priorityIcon {
+  margin-right: 0.5rem;
+  color: inherit;
+}

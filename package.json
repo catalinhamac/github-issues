@@ -3,31 +3,66 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.4",
-    "@material-ui/icons": "^4.11.2",
-    "@testing-library/jest-dom": "^5.12.0",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^12.20.13",
-    "@types/react": "^17.0.5",
-    "@types/react-dom": "^17.0.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "@material-ui/core": "4.11.4",
+    "@material-ui/icons": "4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.58",
+    "@octokit/core": "3.4.0",
+    "@octokit/types": "^6.14.2",
+    "@reduxjs/toolkit": "^1.5.1",
+    "@testing-library/jest-dom": "5.12.0",
+    "@testing-library/react": "11.2.7",
+    "@testing-library/user-event": "12.8.3",
+    "@types/jest": "26.0.23",
+    "@types/material-ui": "^0.21.8",
+    "@types/node": "12.20.13",
+    "@types/react": "17.0.5",
+    "@types/react-dom": "17.0.5",
+    "moment": "^2.29.1",
+    "node-sass": "^6.0.0",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-redux": "^7.2.4",
     "react-scripts": "4.0.3",
-    "typescript": "^4.2.4",
-    "web-vitals": "^1.1.2"
+    "redux": "^4.1.0",
+    "typescript": "4.2.4",
+    "web-vitals": "1.1.2"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "4.24.0",
+    "@typescript-eslint/parser": "4.24.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "6.7.0",
+    "eslint-plugin-prettier": "3.1.2",
+    "eslint-plugin-react": "7.17.0",
+    "eslint-plugin-react-hooks": "2.3.0",
+    "eslint-plugin-sonarjs": "0.5.0",
+    "npm-run-all": "4.1.5",
+    "prettier": "1.19.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "test:coverage": "npm run test -- --watchAll false --coverage",
+    "lint": "eslint \"src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint --fix \"src/**/*.{ts,tsx}\"",
+    "validate": "npm-run-all lint test:coverage build"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
+  "jest": {
+    "resetMocks": true,
+    "coverageThreshold": {
+      "global": {
+        "statements": 80
+      }
+    },
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.(ts|tsx)",
+      "!<rootDir>/src/index.tsx",
+      "!<rootDir>/src/domain/**/*.ts",
+      "!<rootDir>/**/react-app-env.d.ts",
+      "!<rootDir>/**/reportWebVitals.ts",
+      "!<rootDir>/src/**/*.test.(js|jsx|ts|tsx)"
     ]
   },
   "browserslist": {

@@ -1,0 +1,15 @@
+@import '../../styles/variables.scss';
+
+.chip {
+  display: inline-block;
+  border: 1px solid transparent;
+  margin-right: 0.15rem;
+  height: auto;
+
+  > span {
+    padding: 0.1875rem 0.625rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    line-height: 1.125rem;
+  }
+}

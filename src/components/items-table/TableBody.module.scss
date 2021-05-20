@@ -1,0 +1,14 @@
+@import '../../styles/global.scss';
+
+.tableBody {
+  .tableRow {
+    border: 1px solid $color-border-primary;
+    &:hover {
+      background-color: $color-bg-tertiary;
+    }
+  }
+}
+
+.priorityIcon {
+  margin-right: 0.5rem;
+}
