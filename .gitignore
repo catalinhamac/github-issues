@@ -2,6 +2,8 @@
 /node_modules
 /reports
 
+# misc
+.env
 
 # testing
 /coverage

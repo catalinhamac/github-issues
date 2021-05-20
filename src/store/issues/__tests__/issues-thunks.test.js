@@ -14,6 +14,6 @@ describe('issues-thunks', () => {
 
     expect(dispatch.mock.calls[0][0]).toEqual(setIssues());
     expect(dispatch.mock.calls.length).toEqual(2);
-    expect(dispatch.mock.calls[1][0]).toEqual(setSuccessIssues(undefined));
+    expect(dispatch.mock.calls[1][0]).toEqual(setSuccessIssues(mockIssues));
   });
 });

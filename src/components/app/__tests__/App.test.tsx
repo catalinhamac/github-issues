@@ -35,20 +35,22 @@ export const mockIssue: Issue = {
   },
 };
 
-beforeEach(() => {
-  store.dispatch(setSuccessIssues([mockIssue]));
-});
-
 describe('App', () => {
   it('should render without errors', () => {
+    store.dispatch(setSuccessIssues([mockIssue]));
+
+    const state = store.getState();
+
     render(
       <Provider store={store}>
         <App />
       </Provider>
     );
 
-    const component = screen.getByTestId(testId);
-    expect(component).toBeDefined();
+    if (state.data) {
+      const component = screen.getByTestId(testId);
+      expect(component).toBeDefined();
+    }
   });
 
   it('should render ItemsTable', () => {

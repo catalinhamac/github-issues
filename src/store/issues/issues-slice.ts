@@ -3,10 +3,17 @@ import { Issue } from '../../domain/Issue';
 import { GenericObject } from '../../utils/GenericObject';
 import { RootState } from '../store';
 
+interface IsuessData {
+  status: number;
+  url: string;
+  headers: any;
+  data: Issue[];
+}
+
 type SliceState = {
   isLoading: boolean;
   errors: GenericObject | null;
-  data?: Issue[] | null;
+  data?: null | IsuessData;
 };
 
 interface Action {
@@ -43,11 +50,17 @@ export const slice = createSlice({
 export const { setIssues, setSuccessIssues, setErrorsIssues } = slice.actions;
 
 export const selectIssues = (state: RootState): SliceState => state.issues;
+
 export const selectIssuesData = (
   state: RootState
-): Issue[] | null | undefined => selectIssues(state)?.data;
+): IsuessData | null | undefined => selectIssues(state)?.data;
+
+export const selectIssuesFromData = (state: RootState): Issue[] | undefined =>
+  selectIssuesData(state)?.data;
+
 export const selectIsLoading = (state: RootState): boolean =>
   selectIssues(state).isLoading;
+
 export const selectErrors = (
   state: RootState
 ): GenericObject | null | undefined => selectIssues(state).errors;

@@ -5,19 +5,15 @@ import { getIssues } from '../../api/issues';
 export const getIssuesThunk = (queryParams: string) => async (
   dispatch: AppDispatch
 ): Promise<void> => {
-  let result: any;
   try {
     dispatch(setIssues());
 
-    result = await getIssues(queryParams);
-  } catch (e) {
-    if (e.response && e.response.data) {
-      const { errors } = e.response.data || {};
-      dispatch(setErrorsIssues(errors));
-      return Promise.reject(errors);
-    }
-  }
+    const result: any = await getIssues(queryParams);
 
-  dispatch(setSuccessIssues(result.data));
-  return Promise.resolve(result);
+    dispatch(setSuccessIssues(result));
+    return Promise.resolve(result);
+  } catch (e) {
+    dispatch(setErrorsIssues(e));
+    return Promise.reject(e);
+  }
 };
