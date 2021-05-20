@@ -3,7 +3,7 @@ import { Issue } from '../../domain/Issue';
 import { GenericObject } from '../../utils/GenericObject';
 import { RootState } from '../store';
 
-interface IsuessData {
+export interface IsuessData {
   status: number;
   url: string;
   headers: any;
