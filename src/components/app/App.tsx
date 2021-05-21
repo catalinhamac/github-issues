@@ -11,7 +11,7 @@ import { selectIssues, selectError } from '../../store/issues/issues-slice';
 
 export const testId = 'appTestId';
 
-export const App = (): any => {
+export const App = (): JSX.Element => {
   const dispatch = useDispatch();
   const issues = useSelector(selectIssues, shallowEqual);
   const error = useSelector(selectError, shallowEqual);

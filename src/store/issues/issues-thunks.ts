@@ -13,6 +13,6 @@ export const getIssuesThunk = (queryParams: string) => async (
   dispatch(setIssues());
 
   getIssues(queryParams)
-    .then((result: any) => dispatch(setSuccessIssues(result)))
+    .then((result: IsuessData) => dispatch(setSuccessIssues(result)))
     .catch((e) => dispatch(setErrorsIssues(e.message)));
 };

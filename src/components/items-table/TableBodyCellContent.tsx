@@ -29,7 +29,7 @@ export const TableBodyCellContent = ({ row }: Props): JSX.Element => {
     closed_at: closedAt,
     user,
     repository,
-  } = row as any;
+  } = row as Issue;
 
   const ActionMessage = () =>
     state === State.open ? (

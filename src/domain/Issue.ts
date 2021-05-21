@@ -23,6 +23,7 @@ export interface Issue {
   readonly id: string;
   readonly url: string;
   readonly created_at: string;
+  readonly closed_at: string;
   readonly state: string;
   readonly title: string;
   readonly updated_at: string;
