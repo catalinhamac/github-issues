@@ -9,8 +9,9 @@ export enum LabelColor {
 }
 
 export enum State {
-  open = 'open',
-  closed = 'closed',
+  All = 'all',
+  Open = 'open',
+  Closed = 'closed',
 }
 
 export interface Label {

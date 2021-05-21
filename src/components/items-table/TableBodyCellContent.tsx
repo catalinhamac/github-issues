@@ -32,7 +32,7 @@ export const TableBodyCellContent = ({ row }: Props): JSX.Element => {
   } = row as Issue;
 
   const ActionMessage = () =>
-    state === State.open ? (
+    state === State.Open ? (
       <>
         #{number} opened {moment(createdAt.toString(), 'YYYYMMDD').fromNow()} by{' '}
         <a href={user.html_url}>{user.login}</a>

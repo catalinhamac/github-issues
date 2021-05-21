@@ -20,7 +20,7 @@ type Props = SvgIconProps & OwnProps;
 
 export const PriorityIcon = (props: Props): JSX.Element => {
   const { state, isOutlined = true, className = '', ...rest } = props;
-  const isOpen = state === State.open;
+  const isOpen = state === State.Open;
 
   return (
     <PriorityHighIcon

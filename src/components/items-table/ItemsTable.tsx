@@ -18,7 +18,7 @@ export const ItemsTable = (props: Props): JSX.Element => {
   const { items: rows } = props;
 
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(4);
+  const [rowsPerPage, setRowsPerPage] = React.useState(2);
 
   useEffect(() => {
     if (rows.length < rowsPerPage && page > 0) {
@@ -45,7 +45,7 @@ export const ItemsTable = (props: Props): JSX.Element => {
       {rows ? (
         <TableContainer component={Paper}>
           <Table aria-label="items table">
-            <TableHead rows={rows} />
+            <TableHead />
             <TableBody rows={rows} rowsPerPage={rowsPerPage} page={page} />
             <TableFooter
               rows={rows}

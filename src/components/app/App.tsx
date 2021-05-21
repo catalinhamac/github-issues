@@ -1,23 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import Container from '@material-ui/core/Container';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Alert from '@material-ui/lab/Alert';
 
-import { ItemsTable } from '../items-table/ItemsTable';
+import { Routes } from '../routes/Routes';
 import { BoxCenter } from '../BoxCenter';
 import { getIssuesThunk } from '../../store/issues/issues-thunks';
-import { selectIssues, selectError } from '../../store/issues/issues-slice';
+import { selectError } from '../../store/issues/issues-slice';
+import { State } from '../../domain/Issue';
 
 export const testId = 'appTestId';
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();
-  const issues = useSelector(selectIssues, shallowEqual);
   const error = useSelector(selectError, shallowEqual);
 
   useEffect(() => {
-    dispatch(getIssuesThunk('state=all'));
+    dispatch(getIssuesThunk(`state=${State.All}`));
+    dispatch(getIssuesThunk(`state=${State.Open}`));
+    dispatch(getIssuesThunk(`state=${State.Closed}`));
   }, [dispatch]);
 
   if (error) {
@@ -28,19 +29,10 @@ export const App = (): JSX.Element => {
     );
   }
 
-  return issues ? (
+  return (
     <Container data-testid={testId}>
       <h1>GitHub issues</h1>
-      {issues.length ? (
-        <ItemsTable items={issues} />
-      ) : (
-        <h4>You have no issues</h4>
-      )}
+      <Routes />
     </Container>
-  ) : (
-    <BoxCenter>
-      <CircularProgress disableShrink />
-      <h4>Loading issues</h4>
-    </BoxCenter>
   );
 };

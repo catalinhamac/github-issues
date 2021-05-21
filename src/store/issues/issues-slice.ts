@@ -13,7 +13,9 @@ export interface IsuessData {
 type SliceState = {
   isLoading: boolean;
   error: GenericObject | null;
-  api?: null | IsuessData;
+  all?: null | IsuessData;
+  open?: null | IsuessData;
+  closed?: null | IsuessData;
 };
 
 interface Action {
@@ -24,7 +26,9 @@ interface Action {
 export const initialState: SliceState = {
   isLoading: false,
   error: null,
-  api: null,
+  all: null,
+  open: null,
+  closed: null,
 };
 
 export const slice = createSlice({
@@ -34,27 +38,49 @@ export const slice = createSlice({
     setIssues: (state) => {
       state.isLoading = true;
     },
-    setSuccessIssues: (state, { payload }: Action) => {
+    setSuccessAllIssues: (state, { payload }: Action) => {
       state.isLoading = false;
-      state.api = payload;
+      state.all = payload;
+      state.error = null;
+    },
+    setSuccessOpenIssues: (state, { payload }: Action) => {
+      state.isLoading = false;
+      state.open = payload;
+      state.error = null;
+    },
+    setSuccessClosedIssues: (state, { payload }: Action) => {
+      state.isLoading = false;
+      state.closed = payload;
       state.error = null;
     },
     setErrorsIssues: (state, { payload }: Action) => {
       state.isLoading = false;
-      state.api = null;
+      state.all = null;
       state.error = payload;
     },
   },
 });
 
-export const { setIssues, setSuccessIssues, setErrorsIssues } = slice.actions;
+export const {
+  setIssues,
+  setSuccessAllIssues,
+  setSuccessOpenIssues,
+  setSuccessClosedIssues,
+  setErrorsIssues,
+} = slice.actions;
 
-export const selectIssuesApi = (
+export const selectAllIssues = (
   state: RootState
-): undefined | null | IsuessData => state.issues?.api;
+): undefined | null | IsuessData => state?.issues?.all;
+
+export const selectOpenIssues = (state: RootState): undefined | Issue[] =>
+  state.issues?.open?.data;
+
+export const selectClosedIssues = (state: RootState): undefined | Issue[] =>
+  state.issues?.closed?.data;
 
 export const selectIssues = (state: RootState): Issue[] | undefined =>
-  state.issues?.api?.data;
+  state.issues?.all?.data;
 
 export const selectIsLoading = (state: RootState): boolean =>
   state.issues.isLoading;

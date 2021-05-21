@@ -1,5 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import { App, testId } from '../App';
@@ -9,7 +10,7 @@ import {
 } from '../../items-table/ItemsTable';
 import { Issue } from '../../../domain/Issue';
 import { store } from '../../../store/store';
-import { setSuccessIssues } from '../../../store/issues/issues-slice';
+import { setSuccessAllIssues } from '../../../store/issues/issues-slice';
 
 export const mockIssue: Issue = {
   created_at: '10.02.2021',
@@ -37,17 +38,19 @@ export const mockIssue: Issue = {
 
 describe('App', () => {
   it('should render without errors', () => {
-    store.dispatch(setSuccessIssues([mockIssue]));
+    store.dispatch(setSuccessAllIssues([mockIssue]));
 
     const state = store.getState();
 
     render(
       <Provider store={store}>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </Provider>
     );
 
-    if (state.data) {
+    if (state.issues) {
       const component = screen.getByTestId(testId);
       expect(component).toBeDefined();
     }
@@ -56,7 +59,9 @@ describe('App', () => {
   it('should render ItemsTable', () => {
     render(
       <Provider store={store}>
-        <ItemsTable items={[mockIssue]} />
+        <BrowserRouter>
+          <ItemsTable items={[mockIssue]} />
+        </BrowserRouter>
       </Provider>
     );
 

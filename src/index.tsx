@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { StylesProvider } from '@material-ui/core/styles';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import { App } from './components/app/App';
 import reportWebVitals from './reportWebVitals';
@@ -13,7 +14,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <StylesProvider injectFirst>
-        <App />
+        <Router>
+          <App />
+        </Router>
       </StylesProvider>
     </Provider>
   </React.StrictMode>,

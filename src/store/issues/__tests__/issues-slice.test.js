@@ -1,8 +1,8 @@
 import reducer, {
   initialState,
   setIssues,
-  selectIssuesApi,
-  setSuccessIssues,
+  selectAllIssues,
+  setSuccessAllIssues,
   setErrorsIssues,
   selectIsLoading,
   selectError,
@@ -23,11 +23,11 @@ describe('issues-slice', () => {
       errors: null,
       isLoading: false,
     };
-    const newState = reducer(initialState, setSuccessIssues(payload));
+    const newState = reducer(initialState, setSuccessAllIssues(payload));
     const appState = { [slice.name]: newState };
 
     expect(selectIsLoading(appState)).toBe(false);
-    expect(selectIssuesApi(appState)).toEqual({
+    expect(selectAllIssues(appState)).toEqual({
       data: [],
       errors: null,
       isLoading: false,
@@ -41,7 +41,7 @@ describe('issues-slice', () => {
     const appState = { [slice.name]: newState };
 
     expect(selectIsLoading(appState)).toBe(false);
-    expect(selectIssuesApi(appState.issues)).toBe(undefined);
+    expect(selectAllIssues(appState.issues)).toBe(undefined);
     expect(selectError(appState)).toBe(error);
   });
 });

@@ -1,6 +1,8 @@
 import {
   setIssues,
-  setSuccessIssues,
+  setSuccessAllIssues,
+  setSuccessOpenIssues,
+  setSuccessClosedIssues,
   setErrorsIssues,
   IsuessData,
 } from './issues-slice';
@@ -13,6 +15,16 @@ export const getIssuesThunk = (queryParams: string) => async (
   dispatch(setIssues());
 
   getIssues(queryParams)
-    .then((result: IsuessData) => dispatch(setSuccessIssues(result)))
+    .then((result: IsuessData) => {
+      if (queryParams.includes('open')) {
+        return dispatch(setSuccessOpenIssues(result));
+      }
+
+      if (queryParams.includes('closed')) {
+        return dispatch(setSuccessClosedIssues(result));
+      }
+
+      return dispatch(setSuccessAllIssues(result));
+    })
     .catch((e) => dispatch(setErrorsIssues(e.message)));
 };

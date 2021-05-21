@@ -12,11 +12,18 @@
 }
 
 .cellItem {
+  color: $color-text-secondary;
+  text-decoration: none;
   margin-right: 1rem;
+
+  &:hover {
+    color: $color-text-primary;
+  }
 }
 
 .light {
-  color: $color-text-secondary;
+  color: $color-text-primary;
+  font-weight: 600;
 }
 
 .checkIcon {
