@@ -1,11 +1,11 @@
-import React, { ReactElement } from 'react';
+import React, { ReactNode } from 'react';
 
 export const testId = 'buttonTestId';
 
 interface Props {
   handleClick?: () => void;
   disabled?: boolean;
-  children: ReactElement | string;
+  children: ReactNode;
 }
 
 export const Button = (props: Props): JSX.Element => {

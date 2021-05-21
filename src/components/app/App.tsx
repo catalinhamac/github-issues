@@ -2,32 +2,30 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Box from '@material-ui/core/Box';
+import Alert from '@material-ui/lab/Alert';
 
 import { ItemsTable } from '../items-table/ItemsTable';
+import { BoxCenter } from '../BoxCenter';
 import { getIssuesThunk } from '../../store/issues/issues-thunks';
-import {
-  selectIssuesFromData,
-  selectErrors,
-} from '../../store/issues/issues-slice';
-import { Issue } from '../../domain/Issue';
+import { selectIssues, selectError } from '../../store/issues/issues-slice';
 
 export const testId = 'appTestId';
 
 export const App = (): any => {
   const dispatch = useDispatch();
-  const issues: Issue[] | undefined = useSelector(
-    selectIssuesFromData,
-    shallowEqual
-  );
-  const errors = useSelector(selectErrors, shallowEqual);
+  const issues = useSelector(selectIssues, shallowEqual);
+  const error = useSelector(selectError, shallowEqual);
 
   useEffect(() => {
     dispatch(getIssuesThunk('state=all'));
   }, [dispatch]);
 
-  if (errors) {
-    return <p>{errors.message}</p>;
+  if (error) {
+    return (
+      <BoxCenter>
+        <Alert severity="error">{error}</Alert>
+      </BoxCenter>
+    );
   }
 
   return issues ? (
@@ -40,15 +38,9 @@ export const App = (): any => {
       )}
     </Container>
   ) : (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="center"
-      justifyContent="center"
-      height="100vh"
-    >
+    <BoxCenter>
       <CircularProgress disableShrink />
       <h4>Loading issues</h4>
-    </Box>
+    </BoxCenter>
   );
 };

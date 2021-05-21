@@ -9,16 +9,10 @@ import { getIssues } from '../../api/issues';
 
 export const getIssuesThunk = (queryParams: string) => async (
   dispatch: AppDispatch
-): Promise<IsuessData> => {
-  try {
-    dispatch(setIssues());
+): Promise<IsuessData | void> => {
+  dispatch(setIssues());
 
-    const result: IsuessData = await getIssues(queryParams);
-
-    dispatch(setSuccessIssues(result));
-    return Promise.resolve(result);
-  } catch (e) {
-    dispatch(setErrorsIssues(e));
-    return Promise.reject(e);
-  }
+  getIssues(queryParams)
+    .then((result: any) => dispatch(setSuccessIssues(result)))
+    .catch((e) => dispatch(setErrorsIssues(e.message)));
 };

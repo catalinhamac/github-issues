@@ -1,11 +1,11 @@
 import reducer, {
   initialState,
   setIssues,
+  selectIssuesApi,
   setSuccessIssues,
   setErrorsIssues,
-  selectIssues,
   selectIsLoading,
-  selectErrors,
+  selectError,
   slice,
 } from '../issues-slice';
 
@@ -18,29 +18,30 @@ describe('issues-slice', () => {
   });
 
   it('setSuccessIssues', () => {
-    const payload = [];
+    const payload = {
+      data: [],
+      errors: null,
+      isLoading: false,
+    };
     const newState = reducer(initialState, setSuccessIssues(payload));
     const appState = { [slice.name]: newState };
 
     expect(selectIsLoading(appState)).toBe(false);
-    expect(selectIssues(appState)).toEqual({
+    expect(selectIssuesApi(appState)).toEqual({
       data: [],
       errors: null,
       isLoading: false,
     });
-    expect(selectErrors(appState)).toBe(null);
+    expect(selectError(appState)).toBe(null);
   });
 
   it('setErrorsIssues', () => {
-    const newState = reducer(initialState, setErrorsIssues());
+    const error = 'error';
+    const newState = reducer(initialState, setErrorsIssues(error));
     const appState = { [slice.name]: newState };
 
     expect(selectIsLoading(appState)).toBe(false);
-    expect(selectIssues(appState)).toEqual({
-      data: null,
-      errors: undefined,
-      isLoading: false,
-    });
-    expect(selectErrors(appState)).toBe(undefined);
+    expect(selectIssuesApi(appState.issues)).toBe(undefined);
+    expect(selectError(appState)).toBe(error);
   });
 });

@@ -12,8 +12,8 @@ export interface IsuessData {
 
 type SliceState = {
   isLoading: boolean;
-  errors: GenericObject | null;
-  data?: null | IsuessData;
+  error: GenericObject | null;
+  api?: null | IsuessData;
 };
 
 interface Action {
@@ -23,8 +23,8 @@ interface Action {
 
 export const initialState: SliceState = {
   isLoading: false,
-  errors: null,
-  data: null,
+  error: null,
+  api: null,
 };
 
 export const slice = createSlice({
@@ -36,33 +36,30 @@ export const slice = createSlice({
     },
     setSuccessIssues: (state, { payload }: Action) => {
       state.isLoading = false;
-      state.data = payload;
-      state.errors = initialState.errors;
+      state.api = payload;
+      state.error = null;
     },
     setErrorsIssues: (state, { payload }: Action) => {
       state.isLoading = false;
-      state.data = null;
-      state.errors = payload;
+      state.api = null;
+      state.error = payload;
     },
   },
 });
 
 export const { setIssues, setSuccessIssues, setErrorsIssues } = slice.actions;
 
-export const selectIssues = (state: RootState): SliceState => state.issues;
-
-export const selectIssuesData = (
+export const selectIssuesApi = (
   state: RootState
-): IsuessData | null | undefined => selectIssues(state)?.data;
+): undefined | null | IsuessData => state.issues?.api;
 
-export const selectIssuesFromData = (state: RootState): Issue[] | undefined =>
-  selectIssuesData(state)?.data;
+export const selectIssues = (state: RootState): Issue[] | undefined =>
+  state.issues?.api?.data;
 
 export const selectIsLoading = (state: RootState): boolean =>
-  selectIssues(state).isLoading;
+  state.issues.isLoading;
 
-export const selectErrors = (
-  state: RootState
-): GenericObject | null | undefined => selectIssues(state).errors;
+export const selectError = (state: RootState): GenericObject | null =>
+  state.issues.error;
 
 export default slice.reducer;
